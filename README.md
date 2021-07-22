@@ -63,7 +63,7 @@ Também é necessário criar uma conta no [Prismic](https://prismic.io/) e segui
 
 ---
 ## 📝 Licença
-Copyright © 2020 [@ElisioWander]()
+Copyright © 2020 [@ElisioWander](https://github.com/ElisioWander/-ignews-bootcamp-ignite-rocketseat/blob/master/LICENSE)
 
 Este projeto está sobe a [LICENÇA MIT](https://opensource.org/licenses/MIT)
 
