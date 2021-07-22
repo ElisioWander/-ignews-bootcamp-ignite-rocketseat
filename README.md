@@ -29,6 +29,26 @@ Foram utilizadas as seguintes tecnologias para desenvolver a aplicação **Ig.ne
 
 ---
 
+## 🗂️ Como baixar e iniciar o projeto 
+
+```bash
+
+    #clonar o projeto
+    $ git clone https://github.com/ElisioWander/-ignews-bootcamp-ignite-rocketseat.git
+
+    #entrar no diretório
+    $ cd -ignews-bootcamp-ignite-rocketseat
+
+    #instalar as dependências
+    $ yarn
+
+    #iniciar a aplicação
+    $ yarn dev
+```
+### Servidor local
+localhost:3000
+
+---
 
 ## ⚠️ ALERT ⚠️
 Lembrando que será necessário criar uma conta no [Stripe](https://console.firebase.google.com/) e um produto que corresponde a um tipo de assinatura.
