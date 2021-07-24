@@ -29,7 +29,6 @@ export const config = {
 
 const relevantEvents = new Set([
   'checkout.session.completed',
-  'customer.subscription.created',
   'customer.subscription.updated',
   'customer.subscription.deleted'
 ])
@@ -44,7 +43,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     try {
       event = stripe.webhooks.constructEvent(buf, secret, process.env.STRIPE_WEBHOOK_SECRET)
     } catch (err) {
-      res.status(400).send(`Webhook error ${err.message}`)
+      return res.status(400).send(`Webhook error ${err.message}`)
     }
 
     const { type } = event
@@ -54,11 +53,11 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         switch (type) {
           case 'customer.subscription.updated':
           case 'customer.subscription.deleted':
-            const subscritpion = event.data.object as Stripe.Subscription
+            const subscription = event.data.object as Stripe.Subscription
 
             await saveSubscription(
-              subscritpion.id,
-              subscritpion.customer.toString(),
+              subscription.id,
+              subscription.customer.toString(),
               false
             )
 
@@ -67,22 +66,23 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
             const checkoutSession = event.data.object as Stripe.Checkout.Session
 
-            saveSubscription(
+            await saveSubscription(
               checkoutSession.subscription.toString(),
               checkoutSession.customer.toString(),
               true
             )
-
+            
             break;
           default:
             throw new Error('Unhandled event.')
         }
-      } catch {
+      } catch (err) {
+        console.log(err)
         return res.json({ error: 'Webhook handle failed.' })
       }
     }
     
-    res.json({ recived: true })
+    res.json({ received: true })
   } else {
     res.setHeader('Allow', 'POST')
     res.status(405).end('Method not allowed')
